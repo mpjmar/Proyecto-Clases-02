@@ -1,11 +1,10 @@
 package utils;
 
-import java.util.ArrayList;
-
 import boardElements.BoardElement;
 import boardElements.Chaser;
 import boardElements.Runner;
 import input.*;
+import java.util.ArrayList;
 
 public class Utils {
 	
@@ -70,7 +69,7 @@ public class Utils {
 	}
 
 	public static void clearConsole() {
-        System.out.print("\033[H\033[2J");
+        System.out.print("\033[H");
         System.out.flush();
 	}
 

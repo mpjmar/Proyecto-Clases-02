@@ -24,7 +24,7 @@ public class RunnerStrategy {
 		int distRow = 0;
 		int distCol = 0;
 
-		if (r.getTarget() != null) {
+		/* if (r.getTarget() != null) {
 			distRow = r.getTarget().getRow() - r.getRow();
 			distCol = r.getTarget().getCol() - r.getCol();
 		}
@@ -50,7 +50,35 @@ public class RunnerStrategy {
 			} while (bestPos == null || !isValid(gameElements, board, bestPos));
 		}
 		return bestPos;
+	} */
+
+	if (r.getTarget() != null) {
+		distRow = r.getTarget().getRow() - r.getRow();
+		distCol = r.getTarget().getCol() - r.getCol();
 	}
+
+	rowMov = moveRow(r, distRow);
+	colMov = moveCol(r, distCol);
+
+	if (Math.abs(distRow) > Math.abs(distCol)) {
+		if (MovUtils.isValid(gameElements, board, rowMov))
+			bestPos = rowMov;
+		else if (MovUtils.isValid(gameElements, board, colMov))
+			bestPos = colMov;
+	}
+	else if (Math.abs(distCol) > Math.abs(distRow)) {
+		if (MovUtils.isValid(gameElements, board, colMov))
+			bestPos = colMov;
+		else if (MovUtils.isValid(gameElements, board, rowMov))
+			bestPos = rowMov;
+	}
+	if (bestPos == null) {
+		do {
+			bestPos = MovUtils.randomPos(r.getPos());
+		} while (bestPos == null || !MovUtils.isValid(gameElements, board, bestPos));
+	}
+	return bestPos;
+}
 
 	private static Position moveRow(Runner r, int distRow) {
 		int mov = distRow > 0 ? -1 : 1;
@@ -62,7 +90,4 @@ public class RunnerStrategy {
 		return new Position(r.getRow(), r.getCol() + mov);
 	}
 
-	private static boolean isValid(ArrayList<BoardElement> gameElements, Board board, Position pos) {
-		return MovUtils.isWithinLimits(board, pos) && MovUtils.isEmpty(gameElements, pos.getRow(), pos.getCol());
-	}
 }

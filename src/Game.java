@@ -59,13 +59,14 @@ public class Game {
 			erased = false;
 			Utils.clearConsole();
 			board.clearBoard();
+			
 			for (BoardElement e : gameElements)
 				if (e instanceof Target character)
 					character.setTarget(gameElements);
 			board.placeElements(gameElements);
 
 			System.out.println("Esto se imprime");
-			
+
 			Movements.move(gameElements, board);
 			Fight.searchEnemies(gameElements);
 

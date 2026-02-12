@@ -33,21 +33,21 @@ public class ChaserStrategy {
 		colMov = moveCol(c, distCol);
 
 		if (Math.abs(distRow) > Math.abs(distCol)) {
-			if (isValid(gameElements, board, rowMov))
+			if (MovUtils.isValid(gameElements, board, rowMov))
 				bestPos = rowMov;
-			else if (isValid(gameElements, board, colMov))
+			else if (MovUtils.isValid(gameElements, board, colMov))
 				bestPos = colMov;
 		}
 		else if (Math.abs(distCol) > Math.abs(distRow)) {
-			if (isValid(gameElements, board, colMov))
+			if (MovUtils.isValid(gameElements, board, colMov))
 				bestPos = colMov;
-			else if (isValid(gameElements, board, rowMov))
+			else if (MovUtils.isValid(gameElements, board, rowMov))
 				bestPos = rowMov;
 		}
 		if (bestPos == null) {
 			do {
 				bestPos = MovUtils.randomPos(c.getPos());
-			} while (bestPos == null || !isValid(gameElements, board, bestPos));
+			} while (bestPos == null || !MovUtils.isValid(gameElements, board, bestPos));
 		}
 		return bestPos;
 	}
@@ -62,7 +62,4 @@ public class ChaserStrategy {
 		return new Position(c.getRow(), c.getCol() + mov);
 	}
 
-	private static boolean isValid(ArrayList<BoardElement> gameElements, Board board, Position pos) {
-		return MovUtils.isWithinLimits(board, pos) && MovUtils.isEmpty(gameElements, pos.getRow(), pos.getCol());
-	}
 }
